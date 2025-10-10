@@ -9,7 +9,7 @@
 
   <p align="right">
     <img src="https://img.shields.io/badge/Python-3.8%2B-blue" alt="Python Badge">
-    <img src="https://img.shields.io/badge/Flask-UI-lightgrey" alt="Flask Badge">
+    <img src="https://img.shields.io/badge/Flask-Backend-lightgrey" alt="Flask Badge">
     <img src="https://img.shields.io/badge/HTML%2FJS-Frontend-yellow" alt="HTML/JS Badge">
     <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
   </p>
@@ -72,7 +72,7 @@ venv\Scripts\activate</code></pre>
     <li>ודאו ש‑<code>.env</code> נמצא ב‑<code>.gitignore</code></li>
     <li>אם העליתם מפתח בטעות — בטלו אותו מה‑OpenAI dashboard וצרו מפתח חדש</li>
   </ul>
-  
+
   <hr>
 
   <h2>📄 License</h2>
