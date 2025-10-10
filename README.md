@@ -26,33 +26,6 @@
 
   <hr>
 
-  <h2>⚙️ התקנה והרצה</h2>
-
-  <ol>
-    <li>צרו וירטואל סביבה (מומלץ):
-      <pre><code>python -m venv venv
-# Linux / macOS
-source venv/bin/activate
-# Windows
-venv\Scripts\activate</code></pre>
-    </li>
-    <li>התקנת תלויות:
-      <pre><code>pip install -r requirements.txt</code></pre>
-    </li>
-    <li>צרו קובץ <code>.env</code> על בסיס <code>.env.example</code> והכניסו את ה‑API key שלכם:
-      <pre><code>cp .env.example .env
-# הכניסו בקובץ .env את המפתח האמיתי במקום הריק</code></pre>
-    </li>
-    <li>הריצו את השרת:
-      <pre><code>python app.py</code></pre>
-    </li>
-    <li>פתחו את <code>index.html</code> בדפדפן (או על שרת מקומי) כדי להשתמש בצ'אט.<br>
-      ⚠️ ודאו ש‑CORS מוגדר נכון ב‑Flask אם אתם מריצים את ה‑HTML מדומיין/פורט אחר.
-    </li>
-  </ol>
-
-  <hr>
-
   <h2>📝 תכונות עיקריות</h2>
   <ul>
     <li>שיחות מרובות: יצירה ומחיקה של שיחות בסיידבר</li>
