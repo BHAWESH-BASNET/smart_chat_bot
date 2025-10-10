@@ -8,9 +8,9 @@
   </p>
 
   <p align="right">
-    <img src="https://img.shields.io/badge/Python-100%25-blue" alt="Python Badge">
+    <img src="https://img.shields.io/badge/Python-3.8%2B-blue" alt="Python Badge">
     <img src="https://img.shields.io/badge/Flask-UI-lightgrey" alt="Flask Badge">
-    <img src="https://img.shields.io/badge/Paradigm-OOP-green" alt="OOP Badge">
+    <img src="https://img.shields.io/badge/HTML%2FJS-Frontend-yellow" alt="HTML/JS Badge">
     <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
   </p>
 
