@@ -1,5 +1,3 @@
-<div dir="rtl">
-
   <h1>🤖 SmartChat — Secure Hebrew Chatbot</h1>
 
   <p>
@@ -77,5 +75,3 @@ venv\Scripts\activate</code></pre>
 
   <h2>📄 License</h2>
   <p>MIT License © 2025 Raz Eini</p>
-
-</div>
