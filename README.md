@@ -1,5 +1,3 @@
-<div dir="rtl">
-
   <h1>🤖 SmartChat — Secure Hebrew Chatbot</h1>
 
   <p>
@@ -101,6 +99,13 @@
   </table>
 
   <hr>
+  
+  <h2> דוגמא לקוד .env.example </h2>
+
+  <p> OPENAI_API_KEY = "שימו פה את המפתח שלכם" </p>
+
+
+  <hr>
 
   <h2>⚙️ התקנה</h2>
 
@@ -141,5 +146,3 @@
 
   <h2>📄 License</h2>
   <p>MIT License © 2025 Raz Eini</p>
-
-</div>
