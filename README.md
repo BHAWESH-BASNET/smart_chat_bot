@@ -18,7 +18,7 @@
 
   <h2>📁 מבנה הפרויקט</h2>
   <ul>
-    <li><code>main.py</code> — קוד Flask (Backend)</li>
+    <li><code>app.py</code> — קוד Flask (Backend)</li>
     <li><code>history.json</code> — קובץ שמירה אוטומטית של היסטוריית שיחות</li>
     <li><code>index.html</code> — ממשק משתמש בצד ה‑Frontend</li>
     <li><code>requirements.txt</code> — חבילות נדרשות</li>
@@ -46,7 +46,7 @@ venv\Scripts\activate</code></pre>
 # הכניסו בקובץ .env את המפתח האמיתי במקום הריק</code></pre>
     </li>
     <li>הריצו את השרת:
-      <pre><code>python main.py</code></pre>
+      <pre><code>python app.py</code></pre>
     </li>
     <li>פתחו את <code>index.html</code> בדפדפן (או על שרת מקומי) כדי להשתמש בצ'אט.<br>
       ⚠️ ודאו ש‑CORS מוגדר נכון ב‑Flask אם אתם מריצים את ה‑HTML מדומיין/פורט אחר.
@@ -72,17 +72,7 @@ venv\Scripts\activate</code></pre>
     <li>ודאו ש‑<code>.env</code> נמצא ב‑<code>.gitignore</code></li>
     <li>אם העליתם מפתח בטעות — בטלו אותו מה‑OpenAI dashboard וצרו מפתח חדש</li>
   </ul>
-
-  <hr>
-
-  <h2>⚡ שדרוגים מומלצים</h2>
-  <ul>
-    <li>בניית GUI מתקדם עם <code>tkinter</code> או <code>streamlit</code></li>
-    <li>הוספת אפשרות להרצת מודלים אחרים או שינוי פרמטרים (<code>max_tokens</code>, <code>temperature</code>)</li>
-    <li>חיבור למאגר נתונים (DB) במקום קובץ JSON לשמירה מתקדמת של היסטוריה</li>
-    <li>שיפורי UI/UX: אנימציות נוספות, רספונסיביות, הודעות טעינה משופרות</li>
-  </ul>
-
+  
   <hr>
 
   <h2>📄 License</h2>
