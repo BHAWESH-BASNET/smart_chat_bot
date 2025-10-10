@@ -1,74 +1,91 @@
-# 🤖 SmartChat — Secure Python Chatbot (עברית)
+<div dir="rtl">
 
+  <h1>🤖 SmartChat — Secure Hebrew Chatbot</h1>
 
-פרויקט דוגמה לצ'אטבוט בעברית שמתחבר ל־OpenAI בצורה בטוחה — בלי לשים מפתחות בקוד או בגיט.
+  <p>
+    פרויקט דוגמה לצ'אטבוט בעברית שמתחבר ל‑OpenAI בצורה בטוחה — בלי לשים מפתחות בקוד או בגיט.<br>
+    כולל Backend עם Flask ו‑Frontend HTML/JS עם סיידבר לניהול שיחות.
+  </p>
 
+  <p align="right">
+    <img src="https://img.shields.io/badge/Python-100%25-blue" alt="Python Badge">
+    <img src="https://img.shields.io/badge/Flask-UI-lightgrey" alt="Flask Badge">
+    <img src="https://img.shields.io/badge/Paradigm-OOP-green" alt="OOP Badge">
+    <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
+  </p>
 
-## מבנה
+  <hr>
 
+  <h2>📁 מבנה הפרויקט</h2>
+  <ul>
+    <li><code>main.py</code> — קוד Flask (Backend)</li>
+    <li><code>history.json</code> — קובץ שמירה אוטומטית של היסטוריית שיחות</li>
+    <li><code>index.html</code> — ממשק משתמש בצד ה‑Frontend</li>
+    <li><code>requirements.txt</code> — חבילות נדרשות</li>
+    <li><code>.env.example</code> — דוגמת קובץ סביבה</li>
+    <li><code>.gitignore</code> — הגדרות Git</li>
+  </ul>
 
-- `main.py` — קוד הבוט
-- `requirements.txt` — חבילות נדרשות
-- `.env.example` — דוגמת קובץ סביבה
-- `.gitignore` — הגדרות גיט
+  <hr>
 
+  <h2>⚙️ התקנה והרצה</h2>
 
-## התקנה והרצה
+  <ol>
+    <li>צרו וירטואל סביבה (מומלץ):
+      <pre><code>python -m venv venv
+# Linux / macOS
+source venv/bin/activate
+# Windows
+venv\Scripts\activate</code></pre>
+    </li>
+    <li>התקנת תלויות:
+      <pre><code>pip install -r requirements.txt</code></pre>
+    </li>
+    <li>צרו קובץ <code>.env</code> על בסיס <code>.env.example</code> והכניסו את ה‑API key שלכם:
+      <pre><code>cp .env.example .env
+# הכניסו בקובץ .env את המפתח האמיתי במקום הריק</code></pre>
+    </li>
+    <li>הריצו את השרת:
+      <pre><code>python main.py</code></pre>
+    </li>
+    <li>פתחו את <code>index.html</code> בדפדפן (או על שרת מקומי) כדי להשתמש בצ'אט.<br>
+      ⚠️ ודאו ש‑CORS מוגדר נכון ב‑Flask אם אתם מריצים את ה‑HTML מדומיין/פורט אחר.
+    </li>
+  </ol>
 
+  <hr>
 
-1. צרו וירטואל סביבה (מומלץ):
+  <h2>📝 תכונות עיקריות</h2>
+  <ul>
+    <li>שיחות מרובות: יצירה ומחיקה של שיחות בסיידבר</li>
+    <li>שמירה אוטומטית: היסטוריית השיחות נשמרת ב‑<code>history.json</code></li>
+    <li>טעינה הדרגתית של הודעות: הבוט מקליד תגובה תו אחרי תו</li>
+    <li>שפה בעברית: הודעות הבוט מוגדרות בעברית עם נימוס</li>
+    <li>אבטחה: מפתחות OpenAI נשמרים בקובץ <code>.env</code>, לא בקוד</li>
+  </ul>
 
+  <hr>
 
-```bash
-python -m venv venv
-source venv/bin/activate # Linux / macOS
-venv\Scripts\activate # Windows
-```
+  <h2>🔒 אבטחה</h2>
+  <ul>
+    <li>אסור להעלות את <code>.env</code> ל‑GitHub</li>
+    <li>ודאו ש‑<code>.env</code> נמצא ב‑<code>.gitignore</code></li>
+    <li>אם העליתם מפתח בטעות — בטלו אותו מה‑OpenAI dashboard וצרו מפתח חדש</li>
+  </ul>
 
+  <hr>
 
-2. התקנת תלויות:
+  <h2>⚡ שדרוגים מומלצים</h2>
+  <ul>
+    <li>בניית GUI מתקדם עם <code>tkinter</code> או <code>streamlit</code></li>
+    <li>הוספת אפשרות להרצת מודלים אחרים או שינוי פרמטרים (<code>max_tokens</code>, <code>temperature</code>)</li>
+    <li>חיבור למאגר נתונים (DB) במקום קובץ JSON לשמירה מתקדמת של היסטוריה</li>
+    <li>שיפורי UI/UX: אנימציות נוספות, רספונסיביות, הודעות טעינה משופרות</li>
+  </ul>
 
+  <hr>
 
-```bash
-pip install -r requirements.txt
-```
+  <h2>📄 License</h2>
+  <p>MIT License © 2025 Raz Eini</p>
 
-
-3. צרו קובץ `.env` על בסיס `.env.example` והכניסו את ה־API key שלכם:
-
-
-```bash
-cp .env.example .env
-# ואז תשימו בקובץ .env את המפתח האמיתי במקום הריק
-```
-
-
-4. הריצו את הבוט:
-
-
-```bash
-python main.py
-```
-
-
-## אבטחה
-
-
-- **אסור** להעלות את `.env` ל־GitHub.
-- הוסיפו `.env` ל־`.gitignore` (כבר במיזם הזה).
-- אם העליתם מפתח בטעות — בטלו אותו מה־OpenAI dashboard וצרו מפתח חדש.
-
-
-## שדרוגים מומלצים
-
-
-- שמירת היסטוריית שיחות לקובץ הצפוי (לניתוח)
-- בניית GUI עם `tkinter` או `streamlit`
-- הוספת אפשרות להרצת מודלים אחרים/שינוי פרמטרים
-
-
----
-# License
-
-
-MIT License © 2025 Raz Eini
+</div>
