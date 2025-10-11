@@ -1,6 +1,6 @@
 <div dir="rtl">
 
-  <h1>🤖 SmartChat — Secure Hebrew Chatbot</h1>
+  <h1 align="right">🤖 SmartChat — Secure Hebrew Chatbot</h1>
 
   <p>
     פרויקט דוגמה לצ'אטבוט בעברית שמתחבר ל‑OpenAI בצורה בטוחה — בלי לשים מפתחות בקוד או בגיט.<br>
