@@ -4,20 +4,38 @@
 <meta charset="UTF-8">
 <title>SmartChat - Hebrew AI Chatbot</title>
 <style>
-  * { box-sizing: border-box; margin:0; padding:0; font-family: Arial, sans-serif; }
+  * { box-sizing: border-box; margin:0; padding:0; font-family: "Segoe UI", Arial, sans-serif; }
 
-  body { display: flex; height: 100vh; background: #f5f6fa; }
+  body {
+    display: flex;
+    height: 100vh;
+    transition: background 0.5s, color 0.5s;
+  }
+
+  /* מצב כהה */
+  body.dark {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #f0f0f0;
+  }
+
+  /* מצב בהיר */
+  body.light {
+    background: linear-gradient(135deg, #dbeafe, #fef9c3);
+    color: #222;
+  }
 
   /* סיידבר */
   #sidebar {
     width: 280px;
-    background: #fff;
-    border-right: 1px solid #ddd;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    transition: background 0.5s, color 0.5s;
   }
+
   #sidebar button {
     background: #1a73e8; color: #fff; border: none;
     padding: 12px; font-size: 14px;
@@ -28,12 +46,12 @@
   #chat-list { list-style:none; flex:1; overflow-y:auto; margin-top:5px; }
   #chat-list li {
     padding: 10px 12px; margin-bottom:6px;
-    background:#f7f7f7; border-radius:8px;
+    background: var(--chat-item-bg); border-radius:8px;
     display:flex; justify-content:space-between; align-items:center;
     cursor:pointer; transition:0.2s;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
-  #chat-list li:hover { background:#e8f0fe; }
+  #chat-list li:hover { background: var(--chat-item-hover); }
   #chat-list li.active { background:#1a73e8; color:#fff; font-weight:bold; }
   #chat-list li button {
     background:#d32f2f; border:none; color:white;
@@ -43,18 +61,50 @@
   #chat-list li button:hover { background:#b71c1c; }
 
   /* אזור צ'אט */
-  #chat-container { flex:1; display:flex; flex-direction:column; padding:20px; }
+  #chat-container {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    position: relative;
+    transition: background 0.5s, color 0.5s;
+  }
+
+  /* כותרת עליונה */
+  header {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-bottom:15px;
+  }
+  header h1 {
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(26,115,232,0.4);
+  }
+
+  #theme-toggle {
+    background:none;
+    border:none;
+    color: inherit;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  #theme-toggle:hover { transform: rotate(15deg); }
+
   #chat-area {
     flex:1;
-    background:#fff;
+    background: var(--chat-bg);
     padding:20px;
     border-radius:12px;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
     overflow-y:auto;
     margin-bottom:15px;
     direction: rtl;
     display:flex; flex-direction: column; gap: 8px;
+    transition: background 0.5s, color 0.5s;
   }
+
   .message {
     max-width:70%;
     padding:12px 18px;
@@ -67,8 +117,8 @@
     animation: fadeInUp 0.3s forwards;
   }
   .user { background:#1a73e8; color:white; align-self:flex-end; border-bottom-right-radius:0; }
-  .bot { background:#0b6623; color:white; align-self:flex-start; border-bottom-left-radius:0; }
-  .loading { font-style:italic; opacity:0.6; }
+  .bot { background:#4caf50; color:white; align-self:flex-start; border-bottom-left-radius:0; }
+  .loading { font-style:italic; opacity:0.7; }
 
   @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
@@ -90,10 +140,11 @@
   /* אזור קלט */
   #input-area { display:flex; }
   #message {
-    flex:1; padding:12px; border-radius:10px; border:1px solid #ccc; font-size:15px;
+    flex:1; padding:12px; border-radius:10px; border:1px solid var(--border-color); font-size:15px;
     direction: rtl; outline:none; transition:0.2s;
+    background: var(--input-bg); color: var(--text-color);
   }
-  #message:focus { border-color:#1a73e8; box-shadow:0 0 5px rgba(26,115,232,0.4); }
+  #message:focus { border-color:#1a73e8; box-shadow:0 0 5px rgba(26,115,232,0.5); }
   #send-btn {
     background:#1a73e8; color:white; border:none;
     padding:0 25px; margin-left:10px; border-radius:10px; cursor:pointer;
@@ -101,14 +152,40 @@
   }
   #send-btn:hover { background:#1664c1; }
 
+  /* משתנים לפי מצב */
+  body.dark {
+    --sidebar-bg: #2c2f36;
+    --chat-bg: #2a2d35;
+    --input-bg: #353841;
+    --chat-item-bg: #353841;
+    --chat-item-hover: #3e4250;
+    --border-color: #555;
+    --text-color: #fff;
+  }
+
+  body.light {
+    --sidebar-bg: #ffffff;
+    --chat-bg: #f7f9fb;
+    --input-bg: #fff;
+    --chat-item-bg: #f2f4f7;
+    --chat-item-hover: #e8f0fe;
+    --border-color: #ccc;
+    --text-color: #222;
+  }
+
 </style>
 </head>
-<body>
+<body class="dark">
 <div id="sidebar">
   <button onclick="newChat()">שיחה חדשה</button>
   <ul id="chat-list"></ul>
 </div>
+
 <div id="chat-container">
+  <header>
+    <h1>🤖 SmartChat</h1>
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </header>
   <div id="chat-area"></div>
   <div id="input-area">
     <input type="text" id="message" placeholder="כתוב כאן..." onkeydown="if(event.key==='Enter'){sendMessage()}">
@@ -118,8 +195,22 @@
 
 <script>
 let currentChat = 0;
+let darkMode = true;
 
-// --- רשימת הצ'אטים בצד סיידבר ---
+function toggleTheme(){
+  const body = document.body;
+  darkMode = !darkMode;
+  if(darkMode){
+    body.classList.remove('light');
+    body.classList.add('dark');
+    document.getElementById('theme-toggle').textContent = '🌙';
+  } else {
+    body.classList.remove('dark');
+    body.classList.add('light');
+    document.getElementById('theme-toggle').textContent = '☀️';
+  }
+}
+
 function loadChats(){
   fetch('http://127.0.0.1:5000/chats')
     .then(r=>r.json())
@@ -143,20 +234,13 @@ function loadChats(){
 
         li.appendChild(span);
         li.appendChild(delBtn);
-
-        li.onclick=()=>{
-            currentChat=i;
-            renderChat(data[i]);
-            loadChats();
-        };
-
+        li.onclick=()=>{ currentChat=i; renderChat(data[i]); loadChats(); };
         list.appendChild(li);
       });
       if(data.length>0) renderChat(data[currentChat]);
     });
 }
 
-// --- רינדור צ'אט ספציפי (הודעות קיימות בלבד) ---
 function renderChat(chat){
   const area = document.getElementById('chat-area');
   area.innerHTML='';
@@ -169,30 +253,25 @@ function renderChat(chat){
   area.scrollTop=area.scrollHeight;
 }
 
-// --- פונקציה להקלדה הדרגתית של הודעת הבוט בלי לרעוד ---
 function typeBotMessage(area, text) {
   const div = document.createElement('div');
   div.className = 'message bot';
   div.style.opacity = 0;
   div.style.transform = 'translateY(10px)';
 
-  // span נפרד לכותרת ולתוכן
   const label = document.createElement('span');
   label.textContent = '🤖 בוט: ';
   const content = document.createElement('span');
   div.appendChild(label);
   div.appendChild(content);
-
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
 
-  // fadeInUp
   setTimeout(() => {
     div.style.transition = 'opacity 0.3s, transform 0.3s';
     div.style.opacity = 1;
     div.style.transform = 'translateY(0)';
 
-    // הקלדה תו אחרי תו
     let i = 0;
     const interval = setInterval(() => {
       content.textContent = text.slice(0, i);
@@ -203,7 +282,6 @@ function typeBotMessage(area, text) {
   }, 10);
 }
 
-// --- שליחת הודעה ---
 function sendMessage(){
   const input = document.getElementById('message');
   const msg = input.value.trim();
@@ -211,14 +289,12 @@ function sendMessage(){
 
   const area = document.getElementById('chat-area');
 
-  // הודעת המשתמש
   const userDiv = document.createElement('div');
   userDiv.className = 'message user';
   userDiv.textContent = 'אתה: ' + msg;
   area.appendChild(userDiv);
   area.scrollTop = area.scrollHeight;
 
-  // הודעת טעינה
   const loadingDiv = document.createElement('div');
   loadingDiv.className='message bot loading dots';
   loadingDiv.textContent='🤖 בוט';
@@ -235,19 +311,17 @@ function sendMessage(){
   .then(r=>r.json())
   .then(data=>{
     area.removeChild(loadingDiv);
-    const botResponse = data.reply; // נניח שהשרת מחזיר {reply: "..."}
+    const botResponse = data.reply;
     typeBotMessage(area, botResponse);
   });
 }
 
-// --- צ'אט חדש ---
 function newChat(){
   fetch('http://127.0.0.1:5000/chats/new',{method:'POST'})
     .then(r=>r.json())
     .then(()=>loadChats());
 }
 
-// --- מחיקת צ'אט ---
 function deleteChat(index){
   fetch(`http://127.0.0.1:5000/chats/${index}/delete`, { method:'POST' })
     .then(()=>loadChats());
