@@ -2,7 +2,12 @@
 <html lang="he">
 <head>
 <meta charset="UTF-8">
-<title>SmartChat - Hebrew AI Chatbot</title>
+<title>SmartChat - Hebrew AI Chatbot (Pro)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- marked (Markdown) + DOMPurify (sanitize) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+
 <style>
   * { box-sizing: border-box; margin:0; padding:0; font-family: "Segoe UI", Arial, sans-serif; }
 
@@ -10,6 +15,7 @@
     display: flex;
     height: 100vh;
     transition: background 0.5s, color 0.5s;
+    overflow: hidden;
   }
 
   /* מצב כהה */
@@ -26,39 +32,50 @@
 
   /* סיידבר */
   #sidebar {
-    width: 280px;
+    width: 320px;
     background: var(--sidebar-bg);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     padding: 20px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.12);
     transition: background 0.5s, color 0.5s;
+    gap:10px;
   }
 
-  #sidebar button {
+  #sidebar .top {
+    display:flex; gap:8px; align-items:center;
+  }
+
+  #sidebar button.primary {
     background: #1a73e8; color: #fff; border: none;
-    padding: 12px; font-size: 14px;
-    border-radius: 8px; cursor: pointer;
-    margin-bottom: 12px; transition: 0.25s; font-weight:bold;
+    padding: 10px 12px; font-size: 14px;
+    border-radius: 10px; cursor: pointer;
+    transition: 0.25s; font-weight:bold; flex:1;
   }
-  #sidebar button:hover { background: #1664c1; }
-  #chat-list { list-style:none; flex:1; overflow-y:auto; margin-top:5px; }
+  #sidebar button.primary:hover { background: #1664c1; }
+
+  #chat-list { list-style:none; flex:1; overflow-y:auto; margin-top:5px; padding-right:4px; }
   #chat-list li {
-    padding: 10px 12px; margin-bottom:6px;
-    background: var(--chat-item-bg); border-radius:8px;
-    display:flex; justify-content:space-between; align-items:center;
-    cursor:pointer; transition:0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    padding: 10px 12px; margin-bottom:8px;
+    background: var(--chat-item-bg); border-radius:10px;
+    display:flex; gap:8px; align-items:center;
+    cursor:pointer; transition:0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    user-select:none;
   }
-  #chat-list li:hover { background: var(--chat-item-hover); }
-  #chat-list li.active { background:#1a73e8; color:#fff; font-weight:bold; }
-  #chat-list li button {
+  #chat-list li:hover { background: var(--chat-item-hover); transform: translateX(4px); }
+  #chat-list li.active { background:#1a73e8; color:#fff; font-weight:700; transform:none; }
+  #chat-list li .meta { flex:1; display:flex; flex-direction:column; }
+  #chat-list li .meta .title { font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #chat-list li .meta .sub { font-size:12px; opacity:0.7; margin-top:4px; }
+
+  #chat-list li button.del {
     background:#d32f2f; border:none; color:white;
-    border-radius:4px; padding:2px 6px; cursor:pointer;
-    font-size:12px; transition:0.2s;
+    border-radius:6px; padding:6px 8px; cursor:pointer;
+    font-size:12px; transition:0.15s;
   }
-  #chat-list li button:hover { background:#b71c1c; }
+  #chat-list li button.del:hover { background:#b71c1c; }
 
   /* אזור צ'אט */
   #chat-container {
@@ -68,6 +85,7 @@
     padding:20px;
     position: relative;
     transition: background 0.5s, color 0.5s;
+    gap:12px;
   }
 
   /* כותרת עליונה */
@@ -75,11 +93,11 @@
     display:flex;
     justify-content: space-between;
     align-items:center;
-    margin-bottom:15px;
+    margin-bottom:5px;
   }
   header h1 {
-    font-size: 24px;
-    text-shadow: 0 0 8px rgba(26,115,232,0.4);
+    font-size: 22px;
+    text-shadow: 0 0 8px rgba(26,115,232,0.18);
   }
 
   #theme-toggle {
@@ -89,36 +107,48 @@
     font-size: 22px;
     cursor: pointer;
     transition: transform 0.3s;
+    padding:8px;
+    border-radius:8px;
   }
-  #theme-toggle:hover { transform: rotate(15deg); }
+  #theme-toggle:hover { transform: rotate(15deg); background: rgba(255,255,255,0.03); }
 
   #chat-area {
     flex:1;
     background: var(--chat-bg);
-    padding:20px;
+    padding:18px;
     border-radius:12px;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
     overflow-y:auto;
-    margin-bottom:15px;
+    margin-bottom:5px;
     direction: rtl;
-    display:flex; flex-direction: column; gap: 8px;
+    display:flex; flex-direction: column; gap: 10px;
     transition: background 0.5s, color 0.5s;
+    scroll-behavior: smooth;
   }
 
   .message {
-    max-width:70%;
-    padding:12px 18px;
+    max-width:75%;
+    padding:12px 16px;
     border-radius:16px;
     word-wrap: break-word;
-    line-height:1.5;
+    line-height:1.45;
     direction: rtl;
     opacity:0;
-    transform: translateY(10px);
-    animation: fadeInUp 0.3s forwards;
+    transform: translateY(8px);
+    animation: fadeInUp 0.22s forwards;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   }
-  .user { background:#1a73e8; color:white; align-self:flex-end; border-bottom-right-radius:0; }
-  .bot { background:#4caf50; color:white; align-self:flex-start; border-bottom-left-radius:0; }
-  .loading { font-style:italic; opacity:0.7; }
+  .user { background:#1a73e8; color:white; align-self:flex-end; border-bottom-right-radius:4px; }
+  .bot { background:#4caf50; color:white; align-self:flex-start; border-bottom-left-radius:4px; }
+  .meta-time { display:block; font-size:11px; opacity:0.8; margin-top:6px; color:rgba(255,255,255,0.85); }
+  .bot .meta-time, .user .meta-time { opacity:0.85; }
+
+  .message .content { white-space:pre-wrap; }
+
+  .loading {
+    font-style:italic; opacity:0.9; background:transparent; color:inherit;
+  }
 
   @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
@@ -138,28 +168,29 @@
   }
 
   /* אזור קלט */
-  #input-area { display:flex; }
+  #input-area { display:flex; gap:8px; align-items:flex-end; }
   #message {
-    flex:1; padding:12px; border-radius:10px; border:1px solid var(--border-color); font-size:15px;
-    direction: rtl; outline:none; transition:0.2s;
+    flex:1; padding:12px 14px; border-radius:12px; border:1px solid var(--border-color); font-size:15px;
+    direction: rtl; outline:none; transition:0.12s; resize: none; min-height:44px; max-height:160px;
     background: var(--input-bg); color: var(--text-color);
   }
-  #message:focus { border-color:#1a73e8; box-shadow:0 0 5px rgba(26,115,232,0.5); }
+  #message:focus { border-color:#1a73e8; box-shadow:0 0 6px rgba(26,115,232,0.12); }
+
   #send-btn {
     background:#1a73e8; color:white; border:none;
-    padding:0 25px; margin-left:10px; border-radius:10px; cursor:pointer;
-    transition:0.2s; font-weight:bold;
+    padding:10px 18px; border-radius:10px; cursor:pointer;
+    transition:0.15s; font-weight:bold;
   }
   #send-btn:hover { background:#1664c1; }
 
   /* משתנים לפי מצב */
   body.dark {
-    --sidebar-bg: #2c2f36;
-    --chat-bg: #2a2d35;
-    --input-bg: #353841;
-    --chat-item-bg: #353841;
-    --chat-item-hover: #3e4250;
-    --border-color: #555;
+    --sidebar-bg: #23252b;
+    --chat-bg: #1f2126;
+    --input-bg: #272a30;
+    --chat-item-bg: #2a2d34;
+    --chat-item-hover: #33363e;
+    --border-color: #444;
     --text-color: #fff;
   }
 
@@ -173,33 +204,98 @@
     --text-color: #222;
   }
 
+  /* small screens */
+  @media (max-width:900px) {
+    #sidebar { display:none; }
+    body { padding:0; }
+  }
 </style>
 </head>
 <body class="dark">
 <div id="sidebar">
-  <button onclick="newChat()">שיחה חדשה</button>
-  <ul id="chat-list"></ul>
+  <div class="top">
+    <button class="primary" id="new-chat-btn" title="שיחה חדשה (Ctrl+N)">שיחה חדשה</button>
+    <button id="clear-all-btn" title="למחוק את כל השיחות" style="background:#ef6c00; color:white; border:none; border-radius:10px; padding:10px 12px; cursor:pointer;">מחק הכל</button>
+  </div>
+  <div style="font-size:13px; opacity:0.9; line-height:1.6; margin-top:5px;">
+  <strong>:קיצורים שימושיים</strong><br>
+  <span style="display:block; margin-right:10px;">🆕 <strong>Ctrl + M</strong> – שיחה חדשה</span>
+  <span style="display:block; margin-right:10px;">📤 <strong>Ctrl + Enter</strong> – שליחה</span>
+  <span style="display:block; margin-right:10px;">🗑️ <strong>Ctrl + Delete</strong> – מחיקת שיחה</span>
+</div>
+  <ul id="chat-list" aria-label="רשימת שיחות"></ul>
 </div>
 
 <div id="chat-container">
   <header>
     <h1>🤖 SmartChat</h1>
-    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button id="theme-toggle" onclick="toggleTheme()" title="החלפת מצב כהה/בהיר">🌙</button>
+      <div id="current-chat-name" style="font-size:13px; opacity:0.9;"></div>
+    </div>
   </header>
-  <div id="chat-area"></div>
+
+  <div id="chat-area" aria-live="polite"></div>
+
   <div id="input-area">
-    <input type="text" id="message" placeholder="כתוב כאן..." onkeydown="if(event.key==='Enter'){sendMessage()}">
+    <textarea id="message" placeholder="כתוב כאן... (Shift+Enter לשורה חדשה)" rows="1" aria-label="הודעה"></textarea>
     <button id="send-btn" onclick="sendMessage()">שלח</button>
   </div>
 </div>
 
 <script>
+/* ============================
+   SmartChat Pro - Client JS
+   ============================ */
+
+/* Data model:
+   chats: [{ name, messages: [{role:'user'|'bot', content, timeISO}], createdAt }]
+   saved to localStorage under key 'smartchat_chats_v1'
+   theme saved to 'smartchat_darkmode'
+*/
+
+const STORAGE_KEY = 'smartchat_chats_v1';
+const THEME_KEY = 'smartchat_darkmode';
+let chats = [];
 let currentChat = 0;
 let darkMode = true;
+const apiBase = 'http://127.0.0.1:5000'; // server endpoints (fallbacks supported)
 
-function toggleTheme(){
+/* Utilities */
+function nowISO(){ return new Date().toISOString(); }
+function timeLabel(iso){
+  try {
+    return new Date(iso).toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
+  } catch(e) {
+    return iso;
+  }
+}
+function saveLocal(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
+  } catch(e){}
+}
+function loadLocal(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) {
+      chats = JSON.parse(raw);
+      if(!Array.isArray(chats)) chats = [];
+    } else chats = [];
+  } catch(e) { chats = []; }
+}
+function saveTheme(){
+  try { localStorage.setItem(THEME_KEY, darkMode ? 'true' : 'false'); } catch(e){}
+}
+function loadTheme(){
+  try {
+    const t = localStorage.getItem(THEME_KEY);
+    if(t === 'false') darkMode = false;
+    applyTheme();
+  } catch(e){}
+}
+function applyTheme(){
   const body = document.body;
-  darkMode = !darkMode;
   if(darkMode){
     body.classList.remove('light');
     body.classList.add('dark');
@@ -209,125 +305,302 @@ function toggleTheme(){
     body.classList.add('light');
     document.getElementById('theme-toggle').textContent = '☀️';
   }
+  saveTheme();
 }
 
+/* Initialize */
+window.addEventListener('DOMContentLoaded', ()=>{
+  loadTheme();
+  loadChats(); // will try server then fallback to local
+  attachShortcuts();
+});
+
+/* Theme toggle */
+function toggleTheme(){
+  darkMode = !darkMode;
+  applyTheme();
+}
+
+/* Keyboard shortcuts */
+function attachShortcuts(){
+  document.addEventListener('keydown', (e)=>{
+    if(e.ctrlKey && e.key.toLowerCase()==='m'){  // <-- כאן שינינו ל-Ctrl+M
+      e.preventDefault(); newChat();
+    }
+    if(e.ctrlKey && e.key === 'Enter'){
+      e.preventDefault();
+      sendMessage();
+    }
+    if(e.ctrlKey && (e.key === 'Delete' || e.key === 'Backspace' && e.altKey)){
+      e.preventDefault();
+      if(confirm('למחוק את השיחה הנוכחית?')) deleteChat(currentChat);
+    }
+  });
+}
+
+/* UI helpers */
+function smoothScrollToBottom(area){
+  area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
+}
+function renderChatList(){
+  const list = document.getElementById('chat-list');
+  list.innerHTML = '';
+  chats.forEach((chat, i) => {
+    const li = document.createElement('li');
+    li.className = (i === currentChat) ? 'active' : '';
+    li.onclick = ()=>{ currentChat = i; renderChat(chat); renderChatList(); };
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = chat.name || `שיחה ${i+1}`;
+    const sub = document.createElement('div');
+    sub.className = 'sub';
+    const last = chat.messages && chat.messages.length ? chat.messages[chat.messages.length-1] : null;
+    sub.textContent = last ? `${last.role === 'user' ? 'אתה' : 'בוט'} · ${timeLabel(last.time)}` : `נוצר: ${new Date(chat.createdAt).toLocaleString('he-IL')}`;
+
+    meta.appendChild(title);
+    meta.appendChild(sub);
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'del';
+    delBtn.textContent = '🗑️';
+    delBtn.onclick = (e)=>{
+      e.stopPropagation();
+      if(confirm('למחוק שיחה זו?')) {
+        deleteChat(i);
+      }
+    };
+
+    li.appendChild(meta);
+    li.appendChild(delBtn);
+    list.appendChild(li);
+  });
+  // ensure currentChat index valid
+  if(chats.length === 0){
+    currentChat = 0;
+    // create default empty chat automatically
+    createEmptyChat();
+  } else if(currentChat >= chats.length){
+    currentChat = chats.length - 1;
+  }
+  document.getElementById('current-chat-name').textContent = chats[currentChat]?.name || '';
+}
+
+/* Render a chat's messages */
+function renderChat(chat){
+  const area = document.getElementById('chat-area');
+  area.innerHTML = '';
+  (chat.messages || []).forEach(msg => {
+    const div = document.createElement('div');
+    div.className = 'message ' + (msg.role === 'user' ? 'user' : 'bot');
+    const content = document.createElement('div');
+    content.className = 'content';
+
+    if(msg.role === 'bot'){
+      // support markdown + sanitize
+      const raw = marked.parse(msg.content || '');
+      content.innerHTML = DOMPurify.sanitize(raw, {ALLOWED_ATTR: ['href','target','rel']});
+    } else {
+      // user message - escape and preserve newlines
+      content.textContent = msg.content;
+    }
+
+    const timeEl = document.createElement('div');
+    timeEl.className = 'meta-time';
+    timeEl.textContent = timeLabel(msg.time || chat.createdAt);
+
+    div.appendChild(content);
+    div.appendChild(timeEl);
+    area.appendChild(div);
+  });
+  // scroll to bottom
+  smoothScrollToBottom(area);
+  // update current chat name shown
+  document.getElementById('current-chat-name').textContent = chat.name || '';
+}
+
+/* Create new chat (empty) */
+function createEmptyChat(initialName){
+  const chat = {
+    name: initialName || `שיחה חדשה`,
+    messages: [],
+    createdAt: nowISO()
+  };
+  chats.push(chat);
+  currentChat = chats.length - 1;
+  saveLocal();
+  renderChatList();
+  renderChat(chat);
+  return chat;
+}
+
+/* New chat button */
+document.getElementById('new-chat-btn').addEventListener('click', newChat);
+function newChat(){
+  createEmptyChat('שיחה חדשה');
+  // focus message
+  document.getElementById('message').focus();
+}
+
+/* Clear all chats (with confirmation) */
+document.getElementById('clear-all-btn').addEventListener('click', ()=>{
+  if(confirm('למחוק את כל השיחות מהדפדפן? פעולה זו לא ניתנת לביטול.')) {
+    chats = [];
+    saveLocal();
+    createEmptyChat();
+    renderChatList();
+  }
+});
+
+/* Delete chat by index */
+function deleteChat(index){
+  if(index < 0 || index >= chats.length) return;
+  chats.splice(index,1);
+  if(chats.length === 0) createEmptyChat();
+  if(currentChat >= chats.length) currentChat = chats.length - 1;
+  saveLocal();
+  renderChatList();
+  renderChat(chats[currentChat]);
+}
+
+/* Load chats: try server, if fails use local */
 function loadChats(){
-  fetch('http://127.0.0.1:5000/chats')
-    .then(r=>r.json())
+  fetch(apiBase + '/chats', {cache: 'no-store'})
+    .then(r=>{
+      if(!r.ok) throw new Error('server error');
+      return r.json();
+    })
     .then(data=>{
-      const list = document.getElementById('chat-list');
-      list.innerHTML='';
-      data.forEach((chat,i)=>{
-        const li=document.createElement('li');
-        if(i===currentChat) li.classList.add('active');
-
-        const span=document.createElement('span');
-        span.textContent=chat.name;
-        span.style.flex='1';
-
-        const delBtn=document.createElement('button');
-        delBtn.textContent='🗑️';
-        delBtn.onclick=(e)=>{
-          e.stopPropagation();
-          deleteChat(i);
-        };
-
-        li.appendChild(span);
-        li.appendChild(delBtn);
-        li.onclick=()=>{ currentChat=i; renderChat(data[i]); loadChats(); };
-        list.appendChild(li);
-      });
-      if(data.length>0) renderChat(data[currentChat]);
+      // expect server format: array of chats {name, messages: [{role,content,time}]}
+      if(Array.isArray(data) && data.length>0){
+        chats = data.map(c => ({
+          name: c.name || 'שיחה',
+          messages: (c.messages || []).map(m => ({ role: m.role, content: m.content, time: m.time || nowISO() })),
+          createdAt: c.createdAt || nowISO()
+        }));
+        saveLocal();
+        renderChatList();
+        renderChat(chats[currentChat]);
+      } else {
+        // server empty - fallback to local
+        loadLocal();
+        if(chats.length === 0) createEmptyChat();
+        renderChatList();
+        renderChat(chats[currentChat]);
+      }
+    })
+    .catch(err=>{
+      // server not available -> load local
+      loadLocal();
+      if(chats.length === 0) createEmptyChat();
+      renderChatList();
+      renderChat(chats[currentChat]);
     });
 }
 
-function renderChat(chat){
-  const area = document.getElementById('chat-area');
-  area.innerHTML='';
-  chat.messages.forEach(msg=>{
-    const div=document.createElement('div');
-    div.className='message '+(msg.role==='user'?'user':'bot');
-    div.textContent=(msg.role==='user'?'אתה: ':'🤖 בוט: ')+msg.content;
-    area.appendChild(div);
-  });
-  area.scrollTop=area.scrollHeight;
-}
-
-function typeBotMessage(area, text) {
-  const div = document.createElement('div');
-  div.className = 'message bot';
-  div.style.opacity = 0;
-  div.style.transform = 'translateY(10px)';
-
-  const label = document.createElement('span');
-  label.textContent = '🤖 בוט: ';
-  const content = document.createElement('span');
-  div.appendChild(label);
-  div.appendChild(content);
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-
-  setTimeout(() => {
-    div.style.transition = 'opacity 0.3s, transform 0.3s';
-    div.style.opacity = 1;
-    div.style.transform = 'translateY(0)';
-
-    let i = 0;
-    const interval = setInterval(() => {
-      content.textContent = text.slice(0, i);
-      i++;
-      area.scrollTop = area.scrollHeight;
-      if (i > text.length) clearInterval(interval);
-    }, 30);
-  }, 10);
-}
-
+/* sendMessage: posts to server, but if server fails it saves locally & fakes bot reply */
 function sendMessage(){
   const input = document.getElementById('message');
-  const msg = input.value.trim();
-  if(!msg) return;
-
+  const txt = input.value.trim();
+  if(!txt) return;
   const area = document.getElementById('chat-area');
 
-  const userDiv = document.createElement('div');
-  userDiv.className = 'message user';
-  userDiv.textContent = 'אתה: ' + msg;
-  area.appendChild(userDiv);
-  area.scrollTop = area.scrollHeight;
+  // add user message to UI immediately
+  const userMsg = { role:'user', content: txt, time: nowISO() };
+  chats[currentChat].messages.push(userMsg);
 
-  const loadingDiv = document.createElement('div');
-  loadingDiv.className='message bot loading dots';
-  loadingDiv.textContent='🤖 בוט';
-  area.appendChild(loadingDiv);
-  area.scrollTop=area.scrollHeight;
+  // if chat has default name "שיחה חדשה" or similar, update name from first user message
+  if(!chats[currentChat].name || chats[currentChat].name === 'שיחה חדשה' || chats[currentChat].name.startsWith('שיחה ')){
+    const suggested = txt.slice(0,30).replace(/\n/g,' ').trim();
+    chats[currentChat].name = suggested || 'שיחה';
+  }
 
-  input.value='';
+  saveLocal();
+  renderChatList();
+  renderChat(chats[currentChat]);
 
-  fetch(`http://127.0.0.1:5000/chats/${currentChat}/send`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({message: msg})
+  // show typing indicator
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'message bot loading dots';
+  typingDiv.textContent = '🤖 מקליד';
+  area.appendChild(typingDiv);
+  smoothScrollToBottom(area);
+
+  // clear input
+  input.value = '';
+  input.style.height = 'auto';
+  input.focus();
+
+  // prepare payload
+  const payload = { message: txt, chatIndex: currentChat };
+
+  // attempt to POST to server
+  fetch(`${apiBase}/chats/${currentChat}/send`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
   })
-  .then(r=>r.json())
+  .then(r=>{
+    if(!r.ok) throw new Error('server returned non-ok');
+    return r.json();
+  })
   .then(data=>{
-    area.removeChild(loadingDiv);
-    const botResponse = data.reply;
-    typeBotMessage(area, botResponse);
+    // expect { reply: '...' } or structured
+    const reply = (data && (data.reply || data.message)) ? (data.reply || data.message) : 'מצטער, לא קיבלתי תשובה מהשרת.';
+    // remove typing
+    if(typingDiv.parentElement) typingDiv.parentElement.removeChild(typingDiv);
+
+    // add bot message
+    const botMsg = { role:'bot', content: reply, time: nowISO() };
+    chats[currentChat].messages.push(botMsg);
+    saveLocal();
+    renderChat(chats[currentChat]);
+  })
+  .catch(err=>{
+    // network/server failed -> remove typing, add fallback bot reply and save locally
+    if(typingDiv.parentElement) typingDiv.parentElement.removeChild(typingDiv);
+
+    const fallback = "לא ניתן להתחבר לשרת – השיחה נשמרה מקומית. תוכל לשחזר או לשלוח כאשר השרת זמין.";
+    const botMsg = { role:'bot', content: fallback, time: nowISO() };
+    chats[currentChat].messages.push(botMsg);
+    saveLocal();
+    renderChat(chats[currentChat]);
+    console.warn('Send failed, saved locally:', err);
   });
 }
 
-function newChat(){
-  fetch('http://127.0.0.1:5000/chats/new',{method:'POST'})
-    .then(r=>r.json())
-    .then(()=>loadChats());
-}
+/* Auto-resize textarea */
+const textarea = document.getElementById('message');
+textarea.addEventListener('input', (e)=>{
+  textarea.style.height = 'auto';
+  textarea.style.height = (textarea.scrollHeight) + 'px';
+});
 
-function deleteChat(index){
-  fetch(`http://127.0.0.1:5000/chats/${index}/delete`, { method:'POST' })
-    .then(()=>loadChats());
-}
+/* Support Shift+Enter newline, Enter to send */
+textarea.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' && !e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+});
 
-loadChats();
+/* initial focus */
+textarea.focus();
+
+/* Extra: auto-save periodically (in case) */
+setInterval(saveLocal, 5000);
+
+/* Safety note shown in console */
+console.info('SmartChat Pro loaded. Markdown sanitized with DOMPurify. For production, review server-side validation and CORS settings.');
+
+/* Optional: expose chats for debugging (dev) */
+window.__smartchat = {
+  getChats: ()=>chats,
+  save: ()=>saveLocal(),
+  load: ()=>{ loadLocal(); renderChatList(); renderChat(chats[currentChat]); }
+};
 </script>
 </body>
 </html>
