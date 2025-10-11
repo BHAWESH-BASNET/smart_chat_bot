@@ -3,8 +3,7 @@
   <h1 align="right">🤖 SmartChat — Secure Hebrew Chatbot</h1>
 
   <p>
-
-  <br/>
+    <br/>
     פרויקט <strong>SmartChat</strong> הוא צ'אטבוט חכם בעברית, המתחבר ל־OpenAI API בצורה מאובטחת וללא חשיפת מפתחות.<br>
     המערכת כוללת Backend ב־<strong>Flask</strong> ו־Frontend אינטראקטיבי ב־<strong>HTML/JS</strong> עם ניהול שיחות, שמירה אוטומטית וטעינה מהירה.
   </p>
@@ -18,8 +17,6 @@
   </p>
 
   <hr>
-
-  <br/>
 
   <h2>📁 מבנה הפרויקט</h2>
 
@@ -36,16 +33,12 @@
         <td>שרת Flask – אחראי על ניהול בקשות, שיחות ותקשורת עם OpenAI</td>
       </tr>
       <tr>
-        <td><code>static/</code></td>
-        <td>קבצי עיצוב ו־JavaScript של ה־Frontend</td>
-      </tr>
-      <tr>
-        <td><code>templates/index.html</code></td>
+        <td><code>index.html</code></td>
         <td>עמוד הצ’אט הראשי (UI)</td>
       </tr>
       <tr>
         <td><code>history.json</code></td>
-        <td>שמירת היסטוריית השיחות המקומית</td>
+        <td>שמירת היסטוריית השיחות המקומית – כל שיחה חדשה נשמרת אוטומטית</td>
       </tr>
       <tr>
         <td><code>.env</code></td>
@@ -62,11 +55,7 @@
     </tbody>
   </table>
 
-  <br/>
-
   <hr>
-
-  <br/>
 
   <h2 align="right">🧠 Features</h2>
 
@@ -90,7 +79,13 @@
         <td>💾 שמירת נתונים</td>
         <td>שמירת היסטוריית הצ'אט ל־<code>history.json</code></td>
         <td>✅</td>
-        <td>נשמר מקומית במחשב</td>
+        <td>כל שיחה חדשה נשמרת אוטומטית כולל ההודעות הראשוניות</td>
+      </tr>
+      <tr>
+        <td>⌨️ קיצור מקלדת</td>
+        <td>Ctrl+M – שיחה חדשה, Ctrl+Enter – שליחה, Ctrl+Delete – מחיקת שיחה</td>
+        <td>✅</td>
+        <td>ייעול שימוש ל־UX מהיר</td>
       </tr>
       <tr>
         <td>⌨️ טעינה הדרגתית</td>
@@ -120,23 +115,17 @@
         <td>🎨 ממשק משתמש</td>
         <td>UI רספונסיבי עם עיצוב נקי ומודרני</td>
         <td>✅</td>
-        <td>HTML + CSS + JS</td>
+        <td>HTML + CSS + JS, כולל אנימציות ומעבר חלק בין שיחות</td>
       </tr>
     </tbody>
   </table>
 
-  <br/>
-
   <hr>
-
-  <br/>
 
   <h2>💡 דוגמת קובץ <code>.env.example</code></h2>
   <pre><code>OPENAI_API_KEY="הכניסו כאן את המפתח שלכם"</code></pre>
 
   <hr>
-
-  <br/>
 
   <h2>⚙️ התקנה / Installation</h2>
 
@@ -159,11 +148,7 @@
     </tr>
   </table>
 
-  <br/>
-
   <hr>
-
-  <br/>
 
   <h2>🛠️ Tech Stack</h2>
   <ul>
@@ -173,11 +158,7 @@
     <li><strong>Storage:</strong> JSON (לשמירת היסטוריית שיחות)</li>
   </ul>
 
-  <br/>
-
   <hr>
-
-  <br/>
 
   <h2>🔒 אבטחה</h2>
   <ul>
@@ -185,8 +166,6 @@
     <li>ודאו שהוא מופיע בקובץ <code>.gitignore</code>.</li>
     <li>אם מפתח דלף – בטלו אותו מיד דרך <strong>OpenAI Dashboard</strong> וצור חדש.</li>
   </ul>
-
-  <br/>
 
   <hr>
 
@@ -200,3 +179,4 @@
 
   <p><strong>👨‍💻 Raz Eini (2025)</strong></p>
 
+</div>
