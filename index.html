@@ -324,7 +324,7 @@ function toggleTheme(){
 /* Keyboard shortcuts */
 function attachShortcuts(){
   document.addEventListener('keydown', (e)=>{
-    if(e.ctrlKey && e.key.toLowerCase()==='m'){  // <-- כאן שינינו ל-Ctrl+M
+    if(e.ctrlKey && e.key.toLowerCase()==='m'){
       e.preventDefault(); newChat();
     }
     if(e.ctrlKey && e.key === 'Enter'){

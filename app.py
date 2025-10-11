@@ -72,7 +72,7 @@ def send_message(index):
 
     try:
         resp = client.chat.completions.create(
-            model="gpt-4o-mini",  # ← אפשר לשנות ל־"gpt-4o"
+            model="gpt-4o-mini",
             messages=[{"role": "system", "content": CONTEXT_PROMPT}] + all_chats[index]["messages"],
             max_tokens=500
         )
