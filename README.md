@@ -99,11 +99,9 @@
   </table>
 
   <hr>
-  
-  <h2> דוגמא לקוד .env.example </h2>
 
-  <p> OPENAI_API_KEY = "שימו פה את המפתח שלכם" </p>
-
+  <h2>💡 דוגמת קוד .env.example </h2>
+  <pre><code>OPENAI_API_KEY="שימו פה את המפתח שלכם"</code></pre>
 
   <hr>
 
@@ -128,7 +126,7 @@
 
   <h2>🛠️ Tech Stack</h2>
   <ul>
-    <li><strong>Language:</strong> Python 3.8+</li>
+    <li><strong>שפה:</strong> Python 3.8+</li>
     <li><strong>Framework:</strong> Flask</li>
     <li><strong>Frontend:</strong> HTML/JS</li>
   </ul>
@@ -138,7 +136,7 @@
   <h2>🔒 אבטחה</h2>
   <ul>
     <li>אל תעלה את <code>.env</code> ל‑GitHub</li>
-    <li>ודא שהוא ב‑<code>.gitignore</code></li>
+    <li>ודא שהוא מופיע ב‑<code>.gitignore</code></li>
     <li>אם מפתח דלף, בטל אותו ב‑OpenAI Dashboard וצור חדש</li>
   </ul>
 
