@@ -16,7 +16,11 @@
     <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
   </p>
 
+  <br/>
+
   <hr>
+
+  <br/>
 
   <h2>📁 מבנה הפרויקט</h2>
 
@@ -55,7 +59,11 @@
     </tbody>
   </table>
 
+  <br/>
+
   <hr>
+
+  <br/>
 
   <h2 align="right">🧠 Features</h2>
 
@@ -120,12 +128,18 @@
     </tbody>
   </table>
 
+  <br/>
+
   <hr>
+
+  <br/>
 
   <h2>💡 דוגמת קובץ <code>.env.example</code></h2>
   <pre><code>OPENAI_API_KEY="הכניסו כאן את המפתח שלכם"</code></pre>
 
   <hr>
+
+  <br/>
 
   <h2>⚙️ התקנה / Installation</h2>
 
@@ -148,7 +162,11 @@
     </tr>
   </table>
 
+  <br/>
+
   <hr>
+
+  <br/>
 
   <h2>🛠️ Tech Stack</h2>
   <ul>
@@ -158,7 +176,11 @@
     <li><strong>Storage:</strong> JSON (לשמירת היסטוריית שיחות)</li>
   </ul>
 
+  <br/>
+
   <hr>
+
+  <br/>
 
   <h2>🔒 אבטחה</h2>
   <ul>
@@ -166,6 +188,8 @@
     <li>ודאו שהוא מופיע בקובץ <code>.gitignore</code>.</li>
     <li>אם מפתח דלף – בטלו אותו מיד דרך <strong>OpenAI Dashboard</strong> וצור חדש.</li>
   </ul>
+
+  <br/>
 
   <hr>
 
