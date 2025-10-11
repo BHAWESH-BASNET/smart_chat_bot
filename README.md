@@ -1,3 +1,5 @@
+<div dir="rtl">
+
   <h1>🤖 SmartChat — Secure Hebrew Chatbot</h1>
 
   <p>
@@ -124,7 +126,7 @@
 
   <hr>
 
-  <h2>🛠️ Tech Stack</h2>
+  <h2 align="right">🛠️ Tech Stack</h2>
   <ul>
     <li><strong>שפה:</strong> Python 3.8+</li>
     <li><strong>Framework:</strong> Flask</li>
@@ -144,3 +146,5 @@
 
   <h2>📄 License</h2>
   <p>MIT License © 2025 Raz Eini</p>
+
+</div>
